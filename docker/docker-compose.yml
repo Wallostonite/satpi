@@ -1,0 +1,42 @@
+name: satpi
+
+services:
+  api:
+    build: { context: .., dockerfile: docker/Dockerfile.api }
+    ports: ["8000:8000"]
+    environment:
+      SATPI_DATABASE_URL: postgresql://satpi:${POSTGRES_PASSWORD:-satpi}@postgis:5432/satpi
+      SATPI_REDIS_URL: redis://redis:6379/0
+      SATPI_API_AUTH_TOKEN: ${SATPI_API_AUTH_TOKEN:-}
+    depends_on: [postgis, redis]
+    restart: unless-stopped
+
+  worker:
+    build: { context: .., dockerfile: docker/Dockerfile.worker }
+    environment:
+      SATPI_DATABASE_URL: postgresql://satpi:${POSTGRES_PASSWORD:-satpi}@postgis:5432/satpi
+      SATPI_REDIS_URL: redis://redis:6379/0
+    depends_on: [postgis, redis]
+    restart: unless-stopped
+
+  postgis:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: satpi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-satpi}
+      POSTGRES_DB: satpi
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U satpi"]
+      interval: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+
+volumes:
+  pgdata:

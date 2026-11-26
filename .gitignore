@@ -1,0 +1,133 @@
+# ---------------------------------------------------------------------------
+# Documents — never committed (PDF, Word, PowerPoint, Excel, other office
+# formats). Project documentation lives in Markdown (README.md, docs/*.md,
+# DATA_SOURCES.md), which is NOT ignored.
+# ---------------------------------------------------------------------------
+*.pdf
+*.PDF
+*.doc
+*.docx
+*.docm
+*.dot
+*.dotx
+*.odt
+*.rtf
+*.pages
+*.ppt
+*.pptx
+*.pptm
+*.potx
+*.odp
+*.key
+*.xls
+*.xlsx
+*.xlsm
+*.ods
+*.numbers
+~$*
+*.tmp
+
+# ---------------------------------------------------------------------------
+# Data — third-party data are fetched at run time and never redistributed
+# here (see DATA_SOURCES.md).
+# ---------------------------------------------------------------------------
+data/
+raw/
+outputs/
+*.tif
+*.tiff
+*.TIF
+*.vrt
+*.grib
+*.grib2
+*.grib2.gz
+*.grb
+*.nc
+*.nc4
+*.h5
+*.hdf
+*.he5
+*.zarr/
+*.parquet
+*.geoparquet
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.kmz
+*.las
+*.laz
+*.SAFE/
+*.csv.gz
+labels/*.jsonl
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# ---------------------------------------------------------------------------
+# Models and experiment tracking
+# ---------------------------------------------------------------------------
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.safetensors
+checkpoints/
+mlruns/
+mlartifacts/
+lightning_logs/
+wandb/
+
+# ---------------------------------------------------------------------------
+# Secrets and local configuration
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key.json
+credentials*.json
+service-account*.json
+.netrc
+_netrc
+.earthdata*
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Node / front-end
+# ---------------------------------------------------------------------------
+node_modules/
+
+# ---------------------------------------------------------------------------
+# Editors and OS
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

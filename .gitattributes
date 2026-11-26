@@ -1,0 +1,21 @@
+# Normalize line endings in the repository
+* text=auto eol=lf
+
+*.py    text diff=python
+*.md    text diff=markdown
+*.yaml  text
+*.yml   text
+*.toml  text
+*.cff   text
+Makefile text eol=lf
+
+# Binary types (should not be committed, but never mangle them if they are)
+*.png binary
+*.jpg binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.tif binary
+*.nc binary
+*.zip binary

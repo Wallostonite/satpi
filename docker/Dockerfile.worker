@@ -1,0 +1,18 @@
+# Cycle worker: runs nowcast/forecast cycles on a schedule.
+# For the operational phase, build with: --build-arg EXTRAS=ml,geo
+FROM python:3.12-slim
+ARG EXTRAS=""
+RUN useradd --create-home --uid 10001 satpi
+WORKDIR /app
+COPY pyproject.toml README.md ./
+COPY src ./src
+COPY configs ./configs
+RUN if [ -n "$EXTRAS" ]; then pip install --no-cache-dir ".[$EXTRAS]"; \
+    else pip install --no-cache-dir .; fi
+USER satpi
+ENV SATPI_ENVIRONMENT=prod \
+    SATPI_STUDY_AREA_CONFIG=configs/study_areas/sw_pennsylvania.yaml \
+    CYCLE_INTERVAL_S=900
+# Pilot scheduler: one cycle every CYCLE_INTERVAL_S (15 min nowcast NFR).
+# Replaced by Prefect/Airflow deployments in the operational phase.
+CMD ["sh", "-c", "while true; do satpi run-cycle || echo 'cycle failed'; sleep $CYCLE_INTERVAL_S; done"]

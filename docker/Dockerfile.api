@@ -1,0 +1,18 @@
+# API tier: core dependencies only (no torch/GDAL) — small, fast, cheap to scale.
+FROM python:3.12-slim AS builder
+WORKDIR /app
+COPY pyproject.toml README.md ./
+COPY src ./src
+RUN pip install --no-cache-dir --prefix=/install .
+
+FROM python:3.12-slim
+RUN useradd --create-home --uid 10001 satpi
+WORKDIR /app
+COPY --from=builder /install /usr/local
+COPY configs ./configs
+USER satpi
+ENV SATPI_ENVIRONMENT=prod \
+    SATPI_STUDY_AREA_CONFIG=configs/study_areas/sw_pennsylvania.yaml
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=3s CMD python -c "import httpx; httpx.get('http://localhost:8000/health').raise_for_status()"
+CMD ["uvicorn", "satpi.serving.api:app", "--factory", "--host", "0.0.0.0", "--port", "8000"]

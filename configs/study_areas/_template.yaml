@@ -1,0 +1,51 @@
+# ============================================================================
+# STUDY AREA TEMPLATE — copy this file to deploy SatPI in a new region.
+#   cp _template.yaml my_region.yaml
+#   export SATPI_STUDY_AREA_CONFIG=configs/study_areas/my_region.yaml
+#   satpi validate-config && satpi bootstrap
+# See docs/ADAPTING.md for the full checklist (data source swaps, thresholds,
+# label sources, and re-training guidance).
+# ============================================================================
+
+id: my_region                  # lowercase, [a-z0-9_-]
+name: Human-readable region name
+bbox:                          # EPSG:4326 lon/lat
+  west: 0.0
+  south: 0.0
+  east: 1.0
+  north: 1.0
+crs_epsg: 32633                # projected CRS for analysis (UTM zone of region)
+timezone: UTC
+huc_codes: []                  # basin identifiers (HUC in US; leave empty elsewhere)
+
+gauges: []                     # stream gauges: assimilation + validation anchors
+  # - { provider: usgs, station_id: "00000000", name: "...", flood_stage_m: 5.0 }
+
+forcing:                       # swap per-region: MRMS/HRRR are CONUS-only.
+  # Outside CONUS use generic_grib/generic_zarr pointed at your met service.
+  # - { kind: generic_zarr, endpoint: "s3://my-radar-bucket", variables: [precip] }
+  []
+
+satellites:                    # Sentinel-1/2 are global; usually keep as-is.
+  - { kind: sentinel1 }
+  - { kind: sentinel2 }
+
+weak_labels: []                # local flood-report feeds (311-equivalents, claims)
+
+terrain:
+  dem_path: "data/static/my_region_dem.tif"   # best available DEM as COG
+  dem_resolution_m: 10.0
+  solver_resolution_m: 90.0
+  output_resolution_m: 10.0
+  hydro_conditioned: false
+
+solver:
+  scheme: diffusive_wave
+  dt_seconds: 10.0
+  manning_n_default: 0.05
+  ensemble_members: 10
+  max_runtime_minutes: 10
+
+alert_rules: []
+
+extra_static_layers: {}

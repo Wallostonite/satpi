@@ -1,0 +1,63 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it as below, and cite the data sources
+  listed in DATA_SOURCES.md that your work relied on.
+title: "SatPI-FM-CDT: satellite-informed, physics-consistent, causal flood intelligence"
+type: software
+authors:
+  - name: "SatPI-FM-CDT contributors"
+version: 0.1.0
+date-released: 2026-11-25
+license: Apache-2.0
+keywords:
+  - flood forecasting
+  - remote sensing
+  - geospatial foundation models
+  - physics-informed machine learning
+  - causal inference
+  - cyberinfrastructure
+  - Southwestern Pennsylvania
+references:
+  - type: article
+    title: "Prithvi-EO-2.0: A Versatile Multi-Temporal Foundation Model for Earth Observation Applications"
+    authors:
+      - family-names: Szwarcman
+        given-names: Daniela
+      - family-names: Roy
+        given-names: Sujit
+      - family-names: Fraccaro
+        given-names: Paolo
+    year: 2024
+    identifiers:
+      - type: other
+        value: "arXiv:2412.02732"
+  - type: conference-paper
+    title: "Sen1Floods11: a georeferenced dataset to train and test deep learning flood algorithms for Sentinel-1"
+    authors:
+      - family-names: Bonafilia
+        given-names: Derrick
+      - family-names: Tellman
+        given-names: Beth
+      - family-names: Anderson
+        given-names: Tyler
+      - family-names: Issenberg
+        given-names: Erica
+    year: 2020
+    collection-title: "IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops"
+  - type: data
+    title: "USGS Water Data for the Nation: U.S. Geological Survey National Water Information System database"
+    authors:
+      - name: "U.S. Geological Survey"
+    doi: 10.5066/F7P55KJN
+  - type: data
+    title: "Annual NLCD Collection 1 Science Products (ver. 1.1, June 2025)"
+    authors:
+      - name: "U.S. Geological Survey"
+    year: 2024
+    doi: 10.5066/P94UXNTS
+  - type: software
+    title: "Clay Foundation Model"
+    authors:
+      - name: "Clay Foundation"
+    doi: 10.57967/hf/1537
+    license: Apache-2.0

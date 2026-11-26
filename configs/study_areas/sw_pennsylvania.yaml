@@ -1,0 +1,66 @@
+# Reference deployment: Southwestern Pennsylvania (Pittsburgh three-rivers region).
+# This file is the ONLY place SW-PA-specific values live. To deploy elsewhere,
+# copy _template.yaml and fill it in — no code changes required.
+
+id: sw_pennsylvania
+name: Southwestern Pennsylvania — Allegheny / Monongahela / Ohio confluence
+bbox:
+  west: -80.60
+  south: 39.90
+  east: -79.10
+  north: 41.10
+crs_epsg: 26917          # NAD83 / UTM zone 17N
+timezone: America/New_York
+huc_codes: ["050100", "050200"]   # Allegheny, Monongahela
+
+gauges:
+  - { provider: usgs, station_id: "03049500", name: "Allegheny River at Natrona", river: Allegheny, flood_stage_m: 7.62 }
+  - { provider: usgs, station_id: "03085000", name: "Monongahela River at Braddock", river: Monongahela, flood_stage_m: 7.32 }
+  - { provider: usgs, station_id: "03086000", name: "Ohio River at Sewickley", river: Ohio, flood_stage_m: 6.71 }
+  - { provider: usgs, station_id: "03084000", name: "Turtle Creek at Trafford", river: Turtle Creek, flood_stage_m: 3.05 }
+  - { provider: usgs, station_id: "03042000", name: "Blacklick Creek at Josephine", river: Blacklick Creek }
+
+forcing:
+  - { kind: mrms_qpe, endpoint: "https://noaa-mrms-pds.s3.amazonaws.com", variables: [MultiSensor_QPE_01H_Pass2] }
+  - { kind: hrrr, endpoint: "https://noaa-hrrr-bdp-pds.s3.amazonaws.com", variables: [APCP, TMP] }
+  - { kind: nwm, endpoint: "https://noaa-nwm-pds.s3.amazonaws.com", variables: [streamflow] }
+
+satellites:
+  - { kind: sentinel1 }
+  - { kind: sentinel2 }
+  - { kind: hls, stac_endpoint: "https://cmr.earthdata.nasa.gov/stac/LPCLOUD", collection: "HLSS30.v2.0" }
+
+weak_labels:
+  - { name: pittsburgh-311, kind: socrata_311, endpoint: "https://data.wprdc.org", reliability: 0.4 }
+  - { name: nfip-claims, kind: openfema_nfip, endpoint: "https://www.fema.gov/api/open/v2/FimaNfipClaims", reliability: 0.6 }
+  - { name: nws-lsr, kind: nws_lsr, endpoint: "https://mesonet.agron.iastate.edu/geojson/lsr.geojson", reliability: 0.7 }
+
+terrain:
+  dem_path: "data/static/sw_pa_lidar_dem.tif"   # PASDA QL2 LiDAR mosaic (COG)
+  dem_resolution_m: 1.0
+  solver_resolution_m: 90.0
+  output_resolution_m: 10.0
+  hydro_conditioned: true
+
+solver:
+  scheme: diffusive_wave
+  dt_seconds: 10.0
+  manning_n_default: 0.05
+  ensemble_members: 10
+  max_runtime_minutes: 10
+
+alert_rules:
+  - name: route-51-corridor-flooding
+    geometry: route-51-corridor
+    probability_threshold: 0.4
+    min_depth_m: 0.15
+    channels: [webhook, log]
+  - name: turtle-creek-flash
+    geometry: turtle-creek-valley
+    probability_threshold: 0.3
+    min_depth_m: 0.3
+    channels: [webhook, email, log]
+
+extra_static_layers:
+  mining_features: "data/static/pa_dep_mining.parquet"
+  culvert_inventory: "data/static/allegheny_culverts.parquet"

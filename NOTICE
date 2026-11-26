@@ -1,0 +1,30 @@
+SatPI-FM-CDT
+Copyright 2026 SatPI-FM-CDT contributors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+The Apache License covers the source code in this repository only.
+
+THIRD-PARTY DATA
+This repository contains no third-party data. At run time the software
+retrieves data from external providers, each under its own license or terms.
+The following notices apply to products derived from the reference deployment;
+see DATA_SOURCES.md for the complete list, citations and links to terms.
+
+  - Contains modified Copernicus Sentinel data. (European Union, Copernicus)
+  - NOAA MRMS, HRRR and National Water Model data via the NOAA Open Data
+    Dissemination program. Not endorsed by NOAA; derived products are not
+    original NOAA data.
+  - Stream gauge data courtesy of the U.S. Geological Survey.
+  - HLS data: NASA Land Processes DAAC. Not endorsed by NASA.
+  - Pittsburgh 311 Data, City of Pittsburgh, via the Western Pennsylvania
+    Regional Data Center, licensed CC BY.
+  - This product uses the Federal Emergency Management Agency's OpenFEMA API,
+    but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch
+    for the data or analyses derived from these data.
+  - NWS Local Storm Reports via the Iowa Environmental Mesonet, Iowa State
+    University.
+  - Basemap (dashboard) © OpenStreetMap contributors © CARTO.
+
+THIRD-PARTY MODELS (downloaded at training time, not bundled)
+  - Clay Foundation Model, Apache-2.0, Clay Foundation.
+  - Prithvi-EO-2.0, Apache-2.0, IBM and NASA.
