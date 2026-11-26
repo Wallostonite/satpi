@@ -24,6 +24,12 @@ dependencies = [
     "structlog>=24.1",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Wallostonite/satpi"
+Repository = "https://github.com/Wallostonite/satpi"
+Issues = "https://github.com/Wallostonite/satpi/issues"
+"Data sources" = "https://github.com/Wallostonite/satpi/blob/main/DATA_SOURCES.md"
+
 [project.optional-dependencies]
 # Heavy geospatial + ML stacks are opt-in so the core platform stays lightweight
 # and CI stays fast. Install with: pip install -e ".[ml,geo]"

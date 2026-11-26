@@ -1,6 +1,6 @@
 # SatPI-FM-CDT
 
-[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF)](.github/workflows/ci.yml)
+[![CI](https://github.com/Wallostonite/satpi/actions/workflows/ci.yml/badge.svg)](https://github.com/Wallostonite/satpi/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue)](LICENSE)
 [![Data: see DATA_SOURCES](https://img.shields.io/badge/data-open%20sources%2C%20credited-3EA6C9)](DATA_SOURCES.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-informational)](pyproject.toml)
@@ -20,6 +20,7 @@ The reference deployment is **Southwestern Pennsylvania** (Pittsburgh three-rive
 ## Quickstart
 
 ```bash
+git clone https://github.com/Wallostonite/satpi.git && cd satpi
 pip install -e ".[dev]"            # core platform (no heavy deps)
 satpi validate-config              # check the study-area config
 satpi run-cycle                    # end-to-end demo nowcast on synthetic terrain

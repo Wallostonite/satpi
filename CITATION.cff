@@ -9,6 +9,8 @@ authors:
 version: 0.1.0
 date-released: 2026-11-25
 license: Apache-2.0
+repository-code: "https://github.com/Wallostonite/satpi"
+url: "https://github.com/Wallostonite/satpi"
 keywords:
   - flood forecasting
   - remote sensing
